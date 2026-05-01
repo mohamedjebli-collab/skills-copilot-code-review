@@ -12,8 +12,16 @@
     />
   </head>
   <body>
-    <div class="announcement-banner" role="status" aria-live="polite">
-      📢 Activity registration is open until the end of the month. Don't lose your spot!
+    <div id="announcement-banner" class="announcement-banner" role="status" aria-live="polite" aria-hidden="true" hidden>
+      <div class="announcement-content">
+        <span class="announcement-icon" aria-hidden="true">📢</span>
+        <span id="announcement-text"></span>
+      </div>
+      <div class="announcement-nav hidden" id="announcement-nav" aria-label="Announcement navigation">
+        <button id="prev-announcement" class="announcement-nav-btn" aria-label="Previous announcement">&#8249;</button>
+        <span id="announcement-counter" class="announcement-counter"></span>
+        <button id="next-announcement" class="announcement-nav-btn" aria-label="Next announcement">&#8250;</button>
+      </div>
     </div>
     <header>
       <h1>Mergington High School</h1>
@@ -26,6 +34,9 @@
           </button>
           <div id="user-info" class="hidden">
             <span id="display-name"></span>
+            <button id="manage-announcements-btn" class="icon-button manage-announcements-btn" aria-label="Manage announcements" aria-haspopup="dialog">
+              📢 Announcements
+            </button>
             <button id="logout-button">Logout</button>
           </div>
         </div>
@@ -134,6 +145,52 @@
           <button type="submit">Login</button>
         </form>
         <div id="login-message" class="hidden message"></div>
+      </div>
+    </div>
+
+    <!-- Announcements Management Modal -->
+    <div id="announcements-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="announcements-modal-title">
+      <div class="modal-content announcements-modal-content">
+        <button class="close-announcements-modal" id="close-announcements-modal" aria-label="Close announcements manager">&times;</button>
+        <h3 id="announcements-modal-title">📢 Manage Announcements</h3>
+
+        <!-- List section -->
+        <div id="announcements-list-section">
+          <div id="announcements-list" aria-live="polite">
+            <!-- Dynamically populated -->
+          </div>
+          <button id="add-announcement-btn" class="add-announcement-btn">
+            <span aria-hidden="true">＋</span> New Announcement
+          </button>
+        </div>
+
+        <!-- Add / Edit form section -->
+        <div id="announcement-form-section" class="hidden" aria-live="polite">
+          <h4 id="announcement-form-title">Add Announcement</h4>
+          <form id="announcement-form" novalidate>
+            <div class="form-group">
+              <label for="ann-message">Message <span class="required" aria-hidden="true">*</span></label>
+              <textarea id="ann-message" rows="3" required placeholder="Write your announcement here…" aria-required="true" maxlength="500"></textarea>
+              <span class="char-count" id="ann-char-count">0 / 500</span>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ann-start-date">Start Date <span class="optional">(optional)</span></label>
+                <input type="date" id="ann-start-date" aria-required="false" />
+              </div>
+              <div class="form-group">
+                <label for="ann-expiration-date">Expiration Date <span class="required" aria-hidden="true">*</span></label>
+                <input type="date" id="ann-expiration-date" required aria-required="true" />
+              </div>
+            </div>
+            <input type="hidden" id="ann-id" value="" />
+            <div id="announcement-form-error" class="form-error hidden" role="alert"></div>
+            <div class="form-actions">
+              <button type="button" id="cancel-announcement-form" class="btn-secondary">Cancel</button>
+              <button type="submit" id="save-announcement-btn" class="btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
