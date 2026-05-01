@@ -24,7 +24,7 @@ jobs:
       intro-message: "Leverage GitHub Copilot code review to promote code quality and catch issues before they reach production."
 
   post_next_step_content:
-    name: Post next step content
+    name: Post next step content test
     runs-on: ubuntu-latest
     needs: [start_exercise]
     env:
